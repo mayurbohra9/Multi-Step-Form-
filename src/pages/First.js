@@ -10,7 +10,7 @@ import six from '../assets/avatars/6.png';
 
 export default function First({ onNext }) {
 
-	const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState('');
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.id);
@@ -55,17 +55,16 @@ export default function First({ onNext }) {
         },
     ];
 
-  return (
-    <div className="flex flex-col w-full h-3/5 items-center justify-between mt-5 gap-10">
-      
-      <p className="text-4xl font-bold">Which describes you best?</p>
-      <p className="text-stone-600">This will help us personalize your experience.</p>
+    return (
+        <div className="flex flex-col w-full h-3/5 items-center justify-between p-5 gap-10">
+            <div className="text-center gap-4 flex flex-col">
+                <p className="text-2xl md:text-4xl font-bold">Which describes you best?</p>
+                <p className="text-stone-600 text-sm md:text-base mt-2">This will help us personalize your experience.</p>
+            </div>
 
-
-	  <form className="flex flex-col gap-3 w-1/2 overflow-scroll scroll-smooth h-96">
-            {
-                Bars.map((bars) => (
-                    <div>
+            <form className="flex flex-col gap-3 w-1/2 overflow-scroll scroll-smooth max-h-96">
+                {Bars.map((bars) => (
+                    <div key={bars.id}>
                         <input
                             className="hidden"
                             id={bars.id}
@@ -75,23 +74,22 @@ export default function First({ onNext }) {
                             onChange={handleOptionChange}
                         />
                         <label
-                            className={`flex flex-row p-4 gap-4 rounded-lg border-#f0f0f0 cursor-pointer ${selectedOption === bars.id ? 'border-yellow-000 border-2' : 'border'
+                            className={`flex flex-row p-3 md:p-4 gap-2 rounded-lg border border-gray-200 cursor-pointer ${selectedOption === bars.id ? 'border-yellow-500' : ''
                                 }`}
                             htmlFor={bars.id}
                         >
-                            <img src={bars.icon}  alt={bars.icon} className="w-7 cursor-pointer"/>
+                            <img src={bars.icon} alt={bars.icon} className="w-6 md:w-7 cursor-pointer"/>
                             
-                            <div className='flex flex-row gap-1 items-center justify-center '>
-                                <p className=''>{bars.text} <span className='text-stone-600'>{bars.body}</span></p>
+                            <div className='flex flex-col md:flex-row gap-1 items-center'>
+                                <p className='text-sm md:text-base'>{bars.text} <span className='text-sm md:text-base text-stone-600'>{bars.body}</span></p>
+                                
                             </div>
-
                         </label>
                     </div>
-                ))
-            }
-        </form>
-      
-      <Buttons onNext={onNext} selectedOption={selectedOption} />
-    </div>
-  );
+                ))}
+            </form>
+
+            <Buttons onNext={onNext} selectedOption={selectedOption} />
+        </div>
+    );
 }
